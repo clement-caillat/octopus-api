@@ -13,6 +13,6 @@ app.use(bodyParser.json());
 
 // Routes
 app.use('/', require('./routes/indexController'));
-
+app.use('/auth', require('./routes/authController'));
 
 app.listen(PORT, () =>  console.log(`Server listening on http://${HOST}:${PORT}`));
