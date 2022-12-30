@@ -114,7 +114,9 @@ exports.authenticate = data => {
         code: 200,
         message: "Authenticate success",
         authtoken: generateAuthToken(res),
-        token: generateToken(res)
+        token: generateToken(res),
+        user_id: res.id,
+        username: res.username
     };
 }
 
@@ -147,6 +149,7 @@ exports.refresh = headers => {
 
     return {
         code: 200,
-        token: generateToken(data)
+        token: generateToken(data),
+        username: data.username
     }
 }
