@@ -27,7 +27,9 @@ exports.tokenAuth = () => (req, res, next) => {
         });
     }
 
-    if (!checkToken(req.headers['token']))
+    const payload = checkToken(req.headers['token']);
+
+    if (!payload)
     {
         return res.status(417).json({
             code: "ERR_REFRESH",
@@ -35,6 +37,7 @@ exports.tokenAuth = () => (req, res, next) => {
         });
     }
 
+    res.locals.user = payload;
 
     next();
 };
