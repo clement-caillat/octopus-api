@@ -1,5 +1,5 @@
 const express = require('express');
-const { checkToken, tokenAuth } = require('../middlewares/tokenChecker');
+const { tokenAuth } = require('../middlewares/tokenChecker');
 
 const indexRouter = express.Router();
 
