@@ -38,10 +38,10 @@ exports.checkToken = token => {
 exports.checkDate = payload => {
 
     if (payload.type == 'authtoken') {
-        // return payload.iat + 604800 >= getCurrentTimestamp();
-        return payload.iat + 90 >= getCurrentTimestamp();
+        return payload.iat + 604800 >= getCurrentTimestamp();
+        // return payload.iat + 90 >= getCurrentTimestamp();
     } else if (payload.type == 'token') {
-        // return payload.iat + 900 >= getCurrentTimestamp();
-        return payload.iat + 30 >= getCurrentTimestamp();
+        return payload.iat + 900 >= getCurrentTimestamp();
+        // return payload.iat + 30 >= getCurrentTimestamp();
     }
 };
