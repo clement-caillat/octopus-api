@@ -4,6 +4,10 @@ const bodyParser = require('body-parser');
 require('dotenv').config();
 
 const app = express();
+const http = require('http').createServer(app);
+const io = require('socket.io')(http);
+
+module.exports = io;
 
 const HOST = process.env.APP_HOST;
 const PORT = process.env.APP_PORT;
@@ -16,4 +20,4 @@ app.use('/', require('./routes/indexController'));
 app.use('/auth', require('./routes/authController'));
 app.use('/messages', require('./routes/messagesController'));
 
-app.listen(PORT, () =>  console.log(`Server listening on http://${HOST}:${PORT}`));
+http.listen(PORT, () =>  console.log(`Server listening on http://${HOST}:${PORT}`));

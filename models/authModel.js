@@ -122,12 +122,12 @@ exports.authenticate = data => {
 
 exports.refresh = headers => {
     if (!headers.hasOwnProperty('authtoken')) return {
-        code: 417,
+        code: 401,
         message: "Missing auth token"
     };
 
     if (headers['authtoken'] == '') return {
-        code: 417,
+        code: 401,
         message: "Token cannot be empty"
     };
 
@@ -136,7 +136,7 @@ exports.refresh = headers => {
     const payload = checkToken(authToken);
 
     if (!payload) return {
-        code: 417,
+        code: 401,
         message: "Auth token invalid"
     }
 
@@ -148,7 +148,7 @@ exports.refresh = headers => {
     };
 
     return {
-        code: 200,
+        code: 417,
         token: generateToken(data),
         username: data.username
     }

@@ -1,8 +1,15 @@
 const QueryBuilder = require('nodejs-mysql-querybuilder');
 const sanitizer = require('sanitizer');
 const { formatDate } = require('../helpers/dateFormat');
+const uniqid = require('uniqid');
 
 require('dotenv').config();
+
+const io = require('../index');
+
+io.on('connection', socket => {
+    console.log("New connection");
+})
 
 const db = new QueryBuilder({
     host: process.env.DB_HOST,
@@ -34,9 +41,10 @@ exports.postMessage = (payload, data) => {
     };
 
     const content = sanitizer.escape(data['content']);
-
+    const id = uniqid(`${Math.floor(Math.random() * 100)}-`);
     try {
         db.insert({
+            id: id,
             content: content,
             date: formatDate(new Date()),
             user_fk: payload.id
@@ -49,6 +57,12 @@ exports.postMessage = (payload, data) => {
         };
     }
 
+    io.emit('new_message', {
+        id: id,
+        content: content,
+        user_fk: payload.id,
+        username: payload.username
+    });
 
     return {
         code: 200,
